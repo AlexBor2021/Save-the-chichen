@@ -17,7 +17,8 @@ public class Chicken : MonoBehaviour
 
     private void Start()
     {
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(10,4), _speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, _targetsWay[0].transform.position, _speed * Time.deltaTime);
+        transform.LookAt(_targetsWay[0].transform.position, Vector2.up);
     }
 
     private void Update()
