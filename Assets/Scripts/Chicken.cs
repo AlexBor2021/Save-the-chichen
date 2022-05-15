@@ -21,12 +21,12 @@ public class Chicken : MonoBehaviour
 
     private void OnEnable()
     {
-        _box[0]._destroyBox += DestroyBox;
+        _box[0]._destroyBox += ReleaseChicken;
     }
 
     private void OnDisable()
     {
-        _box[0]._destroyBox -= DestroyBox;
+        _box[0]._destroyBox -= ReleaseChicken;
     }
 
     private void Start()
@@ -57,7 +57,7 @@ public class Chicken : MonoBehaviour
         }
     }
 
-    private void DestroyBox()
+    private void ReleaseChicken()
     {
         _speed = _oldSpeed;
         _clikMouse = 0;
