@@ -1,46 +1,92 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpawnChicken : ObjectPool
 {
-    [SerializeField] private Chicken _chicken;
-    [SerializeField] private float _countChickenActive;
-    [SerializeField] private float _timeBetweenSpawns;
+    [SerializeField] private List<Wave> _waves = new List<Wave>();
     [SerializeField] private List<Transform> _targetWay = new List<Transform>();
-
+    
+    private Wave _currentWave;
     private float _pastTime;
+    private int _indexWave = 0;
+    private int _countChickenInBox = 0;
+    private int _activeChikenNow = 0;
+
+    public UnityAction EndWave;
+
+    
+    private void OnDisable()
+    {
+        _currentWave.ChickenTemplate._chickenInBox -= SetCountChickenInBox;
+    }
 
     void Start()
     {
-        _chicken.ClearListChickenList();
+        SetWave(_indexWave);
 
-        for (int i = 0; i < _targetWay.Count; i++)
-        {
-            _chicken.GetTarget(_targetWay[i]);
-        }
+        _currentWave.ChickenTemplate._chickenInBox += SetCountChickenInBox;
 
-        Initialize(_chicken);
+        _currentWave.ChickenTemplate.ClearListChickenList();
+
+        SetWayForChicken();
+
+        Initialize(_currentWave.ChickenTemplate);
     }
 
     private void Update()
     {
+        Debug.Log(_countChickenInBox);
         _pastTime += Time.deltaTime;
 
-        if (TryGetGameObject(out _chicken) && _pastTime >= _timeBetweenSpawns)
+        if (TryGetGameObject(out _currentWave.ChickenTemplate) && _pastTime >= _currentWave.Delay)
         {
-            if (_countChickenActive > 0)
+            if (_currentWave.CoundChicken != _activeChikenNow)
             {
-                SetChicken(_chicken, transform.position);
+                SetChicken(_currentWave.ChickenTemplate, transform.position);
                 _pastTime = 0;
-                _countChickenActive--;
+                _activeChikenNow++;
             }
+        }
+
+        if (_countChickenInBox == _currentWave.CoundChicken)
+        {
+            Time.timeScale = 0;
         }
     }
 
-    private void SetChicken(Chicken chicken, Vector3 spawnPostion)
+    private void SetWayForChicken()
+    {
+        for (int i = 0; i < _targetWay.Count; i++)
+        {
+            _currentWave.ChickenTemplate.GetTarget(_targetWay[i]);
+        }
+    }
+
+    private void SetChicken(Chicken chicken, Vector2 spawnPostion)
     {
         chicken.gameObject.SetActive(true);
-        _chicken.transform.position = spawnPostion;
+        chicken.transform.position = spawnPostion;
     }
+
+    private void SetWave(int indexWave)
+    {
+        _currentWave = _waves[indexWave];
+    }
+
+    private void SetCountChickenInBox(int index)
+    {
+        _countChickenInBox += index;
+    }
+
+}
+
+[System.Serializable]
+
+public class Wave
+{
+    public Chicken ChickenTemplate;
+    public int CoundChicken;
+    public int Delay;
 }

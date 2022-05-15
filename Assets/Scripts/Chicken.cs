@@ -6,26 +6,76 @@ using UnityEngine.Events;
 public class Chicken : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    
     [SerializeField] private List<Transform> _targetsWay = new List<Transform>();
-    private int _pointTarget;
+    [SerializeField] private List<Box> _box = new List<Box>();
 
-    private void OnMouseDown()
-    {
-        gameObject.SetActive(false);
-    }
+
+    private SpriteRenderer _chickenSpriteRender;
+    private Animator _animator;
+    private int _pointTarget;
+    private float _axisY;
+    private int _clikMouse = 0;
+    private float _oldSpeed;
+
+    public  UnityAction<int> _chickenInBox;
+
 
     private void Start()
     {
-        transform.position = Vector2.MoveTowards(transform.position, _targetsWay[0].transform.position, _speed * Time.deltaTime);
-        transform.LookAt(_targetsWay[0].transform.position, Vector2.up);
+        _chickenSpriteRender = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+        _pointTarget = Random.Range(0, _targetsWay.Count);
+        _axisY = transform.position.y;
+        _oldSpeed = _speed;
     }
 
     private void Update()
     {
+        MoveChicken();
+        Rotate();
+    }
+
+    private void OnMouseDown()
+    {
+        Box._destroyBox += DestroyBox;
+
+        _clikMouse++;
+
+        if (_clikMouse == 1)
+        {
+            _speed = 0;
+            Instantiate(_box[0], transform.position, Quaternion.identity);
+            _chickenInBox?.Invoke(1);
+        }
+    }
+
+    private void DestroyBox()
+    {
+        _speed = _oldSpeed;
+        _clikMouse = 0;
+        _chickenInBox?.Invoke(-1);
+
+        Box._destroyBox -= DestroyBox;
+    }
+
+    private void Rotate()
+    {
+        var dirathion = _targetsWay[_pointTarget].transform.position - transform.position;
+        var angle = Mathf.Atan2(dirathion.y, dirathion.x) * Mathf.Rad2Deg;
+        angle += 90;
+        transform.rotation = Quaternion.Euler(0 , 0, angle);
+    }
+
+    private void MoveChicken()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, _targetsWay[_pointTarget].transform.position, _speed * Time.deltaTime);
+        SetAnimation();
+
         if (Vector2.Distance(transform.position, _targetsWay[_pointTarget].transform.position) < 1)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _targetsWay[_pointTarget = Random.Range(0, 7)].transform.position, _speed * Time.deltaTime);
+            _pointTarget = Random.Range(0, _targetsWay.Count);
+            transform.position = Vector2.MoveTowards(transform.position, _targetsWay[_pointTarget].transform.position, _speed * Time.deltaTime);
+            SetAnimation();
         }
     }
 
@@ -37,5 +87,25 @@ public class Chicken : MonoBehaviour
     public void ClearListChickenList()
     {
         _targetsWay.Clear();
+    }
+
+    private void SetAnimation()
+    {
+        var time = +Time.deltaTime;
+
+        if (_axisY > _targetsWay[_pointTarget].transform.position.y || time == 1)
+        {
+            _axisY = transform.position.y;
+            _chickenSpriteRender.flipY = false;
+            _animator.SetFloat("Horizontal", -1);
+            time = 0;
+        }
+        else
+        {
+            _axisY = transform.position.y;
+            _animator.SetFloat("Horizontal", 1);
+            _chickenSpriteRender.flipY = true;
+            time = 0;
+        }
     }
 }
