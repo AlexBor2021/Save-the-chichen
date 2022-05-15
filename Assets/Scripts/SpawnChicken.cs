@@ -16,17 +16,19 @@ public class SpawnChicken : ObjectPool
 
     public UnityAction EndWave;
 
-    
+    private void OnEnable()
+    {
+        _currentWave.ChickenTemplate.ChickenInBox += SetCountChickenInBox;
+    }
+
     private void OnDisable()
     {
-        _currentWave.ChickenTemplate._chickenInBox -= SetCountChickenInBox;
+        _currentWave.ChickenTemplate.ChickenInBox -= SetCountChickenInBox;
     }
 
     void Start()
     {
         SetWave(_indexWave);
-
-        _currentWave.ChickenTemplate._chickenInBox += SetCountChickenInBox;
 
         _currentWave.ChickenTemplate.ClearListChickenList();
 
@@ -38,6 +40,7 @@ public class SpawnChicken : ObjectPool
     private void Update()
     {
         Debug.Log(_countChickenInBox);
+
         _pastTime += Time.deltaTime;
 
         if (TryGetGameObject(out _currentWave.ChickenTemplate) && _pastTime >= _currentWave.Delay)

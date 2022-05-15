@@ -17,7 +17,7 @@ public class Chicken : MonoBehaviour
     private int _clikMouse = 0;
     private float _oldSpeed;
 
-    public  UnityAction<int> _chickenInBox;
+    public  UnityAction<int> ChickenInBox;
 
 
     private void Start()
@@ -45,7 +45,7 @@ public class Chicken : MonoBehaviour
         {
             _speed = 0;
             Instantiate(_box[0], transform.position, Quaternion.identity);
-            _chickenInBox?.Invoke(1);
+            ChickenInBox?.Invoke(1);
         }
     }
 
@@ -53,7 +53,7 @@ public class Chicken : MonoBehaviour
     {
         _speed = _oldSpeed;
         _clikMouse = 0;
-        _chickenInBox?.Invoke(-1);
+        ChickenInBox?.Invoke(-1);
 
         Box._destroyBox -= DestroyBox;
     }
