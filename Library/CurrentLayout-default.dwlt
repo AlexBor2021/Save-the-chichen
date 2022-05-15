@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinSize: {x: 781, y: 563}
   m_MaxSize: {x: 16006, y: 12063}
   vertical: 0
-  controlID: 180
+  controlID: 117
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -439,7 +439,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -500,7 +500,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: fcfaffff
+      m_ExpandedIDs: 40fbffffcc4200002c430000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -7998
+  m_LastSelectedObjectID: -1488
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52

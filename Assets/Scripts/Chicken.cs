@@ -19,16 +19,6 @@ public class Chicken : MonoBehaviour
 
     public  UnityAction<int> ChickenInBox;
 
-    private void OnEnable()
-    {
-        _box[0]._destroyBox += ReleaseChicken;
-    }
-
-    private void OnDisable()
-    {
-        _box[0]._destroyBox -= ReleaseChicken;
-    }
-
     private void Start()
     {
         _chickenSpriteRender = GetComponent<SpriteRenderer>();
@@ -51,6 +41,7 @@ public class Chicken : MonoBehaviour
 
         if (_clikMouse == 1)
         {
+            _box[0]._destroyBox += ReleaseChicken;
             _speed = 0;
             Instantiate(_box[0], transform.position, Quaternion.identity);
             ChickenInBox?.Invoke(1);
@@ -62,6 +53,7 @@ public class Chicken : MonoBehaviour
         _speed = _oldSpeed;
         _clikMouse = 0;
         ChickenInBox?.Invoke(-1);
+        _box[0]._destroyBox -= ReleaseChicken;
     }
 
     private void Rotate()
