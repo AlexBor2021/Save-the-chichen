@@ -41,7 +41,7 @@ public class Chicken : MonoBehaviour
 
         if (_clikMouse == 1)
         {
-            _box[0]._destroyBox += ReleaseChicken;
+            _box[0].DestroyBox += ReleaseChicken;
             _speed = 0;
             Instantiate(_box[0], transform.position, Quaternion.identity);
             ChickenInBox?.Invoke(1);
@@ -53,7 +53,7 @@ public class Chicken : MonoBehaviour
         _speed = _oldSpeed;
         _clikMouse = 0;
         ChickenInBox?.Invoke(-1);
-        _box[0]._destroyBox -= ReleaseChicken;
+        _box[0].DestroyBox -= ReleaseChicken;
     }
 
     private void Rotate()

@@ -13,22 +13,15 @@ public class SpawnChicken : ObjectPool
     private int _indexWave = 0;
     private int _countChickenInBox = 0;
     private int _activeChikenNow = 0;
-
-    //private void OnEnable()
-    //{
-    //    _currentWave.ChickenTemplate.ChickenInBox += SetCountChickenInBox;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    _currentWave.ChickenTemplate.ChickenInBox -= SetCountChickenInBox;
-    //}
+    
 
     void Start()
     {
         SetWave(_indexWave);
 
         _currentWave.ChickenTemplate.ClearListChickenList();
+
+        _currentWave.ChickenTemplate.ChickenInBox += SetCountChickenInBox;
 
         SetWayForChicken();
 
@@ -81,6 +74,11 @@ public class SpawnChicken : ObjectPool
         _countChickenInBox += index;
     }
 
+
+    private void OnDisable()
+    {
+        _currentWave.ChickenTemplate.ChickenInBox -= SetCountChickenInBox;
+    }
 }
 
 [System.Serializable]

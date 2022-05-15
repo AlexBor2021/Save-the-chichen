@@ -7,7 +7,7 @@ public class Box : MonoBehaviour
 {
     [SerializeField]private float _timerSecond = 10;
 
-    public UnityAction _destroyBox;
+    public UnityAction DestroyBox;
 
     private float _lasttime;
 
@@ -18,7 +18,7 @@ public class Box : MonoBehaviour
         if (_lasttime >= _timerSecond)
         {
             Destroy(gameObject);
-            _destroyBox?.Invoke();
+            DestroyBox?.Invoke();
         }
     }
 }
