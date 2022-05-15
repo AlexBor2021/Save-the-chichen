@@ -14,17 +14,15 @@ public class SpawnChicken : ObjectPool
     private int _countChickenInBox = 0;
     private int _activeChikenNow = 0;
 
-    public UnityAction EndWave;
+    //private void OnEnable()
+    //{
+    //    _currentWave.ChickenTemplate.ChickenInBox += SetCountChickenInBox;
+    //}
 
-    private void OnEnable()
-    {
-        _currentWave.ChickenTemplate.ChickenInBox += SetCountChickenInBox;
-    }
-
-    private void OnDisable()
-    {
-        _currentWave.ChickenTemplate.ChickenInBox -= SetCountChickenInBox;
-    }
+    //private void OnDisable()
+    //{
+    //    _currentWave.ChickenTemplate.ChickenInBox -= SetCountChickenInBox;
+    //}
 
     void Start()
     {

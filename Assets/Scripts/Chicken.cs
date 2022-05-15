@@ -19,6 +19,15 @@ public class Chicken : MonoBehaviour
 
     public  UnityAction<int> ChickenInBox;
 
+    private void OnEnable()
+    {
+        _box[0]._destroyBox += DestroyBox;
+    }
+
+    private void OnDisable()
+    {
+        _box[0]._destroyBox -= DestroyBox;
+    }
 
     private void Start()
     {
@@ -35,10 +44,9 @@ public class Chicken : MonoBehaviour
         Rotate();
     }
 
+
     private void OnMouseDown()
     {
-        Box._destroyBox += DestroyBox;
-
         _clikMouse++;
 
         if (_clikMouse == 1)
@@ -54,8 +62,6 @@ public class Chicken : MonoBehaviour
         _speed = _oldSpeed;
         _clikMouse = 0;
         ChickenInBox?.Invoke(-1);
-
-        Box._destroyBox -= DestroyBox;
     }
 
     private void Rotate()

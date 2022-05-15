@@ -7,7 +7,7 @@ public class Box : MonoBehaviour
 {
     [SerializeField]private float _timerSecond = 10;
 
-    public static UnityAction _destroyBox;
+    public UnityAction _destroyBox;
 
     private float _lasttime;
 
