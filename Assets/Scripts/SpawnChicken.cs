@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class SpawnChicken : ObjectPool
 {
     [SerializeField] private List<Wave> _waves = new List<Wave>();
     [SerializeField] private List<Transform> _targetWay = new List<Transform>();
-    
+    [SerializeField] private Slider _barCaptureChicken;
+
+
     private Wave _currentWave;
     private float _pastTime;
     private int _indexWave = 0;
@@ -21,7 +24,7 @@ public class SpawnChicken : ObjectPool
 
         _currentWave.ChickenTemplate.ClearListChickenList();
 
-        _currentWave.ChickenTemplate.ChickenInBox += SetCountChickenInBox;
+        Chicken.ChickenInBox += SetCountChickenInBox;
 
         SetWayForChicken();
 
@@ -30,13 +33,11 @@ public class SpawnChicken : ObjectPool
 
     private void Update()
     {
-        Debug.Log(_countChickenInBox);
-
         _pastTime += Time.deltaTime;
 
         if (TryGetGameObject(out _currentWave.ChickenTemplate) && _pastTime >= _currentWave.Delay)
         {
-            if (_currentWave.CoundChicken != _activeChikenNow)
+            if (_currentWave.CountChicken != _activeChikenNow)
             {
                 SetChicken(_currentWave.ChickenTemplate, transform.position);
                 _pastTime = 0;
@@ -44,10 +45,12 @@ public class SpawnChicken : ObjectPool
             }
         }
 
-        if (_countChickenInBox == _currentWave.CoundChicken)
+        if (_countChickenInBox == _currentWave.CountChicken )
         {
             Time.timeScale = 0;
         }
+
+        SetCaptudeBar(_countChickenInBox);
     }
 
     private void SetWayForChicken()
@@ -74,10 +77,16 @@ public class SpawnChicken : ObjectPool
         _countChickenInBox += index;
     }
 
+    private void SetCaptudeBar(int countChickenInBox)
+    {
+        _barCaptureChicken.maxValue = _currentWave.CountChicken;
+        _barCaptureChicken.value = _countChickenInBox;
+    }
+
 
     private void OnDisable()
     {
-        _currentWave.ChickenTemplate.ChickenInBox -= SetCountChickenInBox;
+        Chicken.ChickenInBox -= SetCountChickenInBox;
     }
 }
 
@@ -86,6 +95,6 @@ public class SpawnChicken : ObjectPool
 public class Wave
 {
     public Chicken ChickenTemplate;
-    public int CoundChicken;
+    public float CountChicken;
     public int Delay;
 }

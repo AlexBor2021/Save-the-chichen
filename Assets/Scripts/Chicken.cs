@@ -12,12 +12,13 @@ public class Chicken : MonoBehaviour
 
     private SpriteRenderer _chickenSpriteRender;
     private Animator _animator;
+    private Box _currentBox;
     private int _pointTarget;
     private float _axisY;
     private int _clikMouse = 0;
     private float _oldSpeed;
 
-    public  UnityAction<int> ChickenInBox;
+    public  static UnityAction<int> ChickenInBox;
 
     private void Start()
     {
@@ -41,9 +42,9 @@ public class Chicken : MonoBehaviour
 
         if (_clikMouse == 1)
         {
-            _box[0].DestroyBox += ReleaseChicken;
             _speed = 0;
-            Instantiate(_box[0], transform.position, Quaternion.identity);
+            _currentBox = Instantiate(_box[0], transform.position, Quaternion.identity);
+            _currentBox.DestroyBox += ReleaseChicken;
             ChickenInBox?.Invoke(1);
         }
     }
@@ -53,7 +54,7 @@ public class Chicken : MonoBehaviour
         _speed = _oldSpeed;
         _clikMouse = 0;
         ChickenInBox?.Invoke(-1);
-        _box[0].DestroyBox -= ReleaseChicken;
+        _currentBox.DestroyBox += ReleaseChicken;
     }
 
     private void Rotate()

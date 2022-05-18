@@ -2600,7 +2600,7 @@ MonoBehaviour:
   _capasity: 30
   _waves:
   - ChickenTemplate: {fileID: 3002732291989923469, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CoundChicken: 2
+    CountChicken: 6
     Delay: 1
   _targetWay:
   - {fileID: 154679485}
@@ -2622,6 +2622,7 @@ MonoBehaviour:
   - {fileID: 1259332802}
   - {fileID: 1374161016}
   - {fileID: 1626472695}
+  _barCaptureChicken: {fileID: 2130907237}
 --- !u!4 &1224580599
 Transform:
   m_ObjectHideFlags: 0
