@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class SpawnChicken : ObjectPool
 {
     [SerializeField] private List<Wave> _waves = new List<Wave>();
     [SerializeField] private List<Transform> _targetWay = new List<Transform>();
     [SerializeField] private Slider _barCaptureChicken;
-
+    [SerializeField] private GameObject _nextLevel;
+    [SerializeField] private TextMeshProUGUI _lecelCurrentText;
+    [SerializeField] private TextMeshProUGUI _levelNextText;
 
     private Wave _currentWave;
     private float _pastTime;
     private int _indexWave = 0;
     private int _countChickenInBox = 0;
     private int _activeChikenNow = 0;
-    
+    private float timer = 0;
+
 
     void Start()
     {
@@ -47,7 +51,16 @@ public class SpawnChicken : ObjectPool
 
         if (_countChickenInBox == _currentWave.CountChicken )
         {
-            Time.timeScale = 0;
+            timer += Time.deltaTime;
+            
+            if (timer >= 1)
+            {
+                Time.timeScale = 0;
+                ChangeTextPanelNextLevel();
+                _nextLevel.SetActive(true);
+                _countChickenInBox = 0;
+            }
+
         }
 
         SetCaptudeBar(_countChickenInBox);
@@ -83,10 +96,21 @@ public class SpawnChicken : ObjectPool
         _barCaptureChicken.value = _countChickenInBox;
     }
 
+    public void ActiveateNextLevel()
+    {
+        SetWave(_indexWave++);
+        Time.timeScale = 1;
+    }
 
     private void OnDisable()
     {
         Chicken.ChickenInBox -= SetCountChickenInBox;
+    }
+
+    private void ChangeTextPanelNextLevel()
+    {
+        _lecelCurrentText.text = "Level " + _indexWave;
+        _levelNextText.text = "Level " + (_indexWave+1);
     }
 }
 
