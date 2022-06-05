@@ -5112,7 +5112,7 @@ MonoBehaviour:
   _capasity: 15
   _waves:
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CountChicken: 7
+    CountChicken: 1
     Delay: 1
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 2
