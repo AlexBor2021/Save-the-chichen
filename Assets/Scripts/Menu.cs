@@ -25,5 +25,11 @@ public class Menu : MonoBehaviour
     public void ExitInMenu()
     {
         SceneManager.LoadScene("SampleScene");
+        Time.timeScale = 1;
+    }
+
+    public void SetActiveFreezButton(GameObject button)
+    {
+        button.SetActive(true);
     }
 }

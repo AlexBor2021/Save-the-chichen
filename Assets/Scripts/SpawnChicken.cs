@@ -10,7 +10,8 @@ public class SpawnChicken : ObjectPool
     [SerializeField] private List<Wave> _waves = new List<Wave>();
     [SerializeField] private List<Transform> _targetWay = new List<Transform>();
     [SerializeField] private Slider _barCaptureChicken;
-    [SerializeField] private GameObject _nextLevel;
+    [SerializeField] private GameObject _nextLevelButton;
+    [SerializeField] private GameObject _freezButton;
     [SerializeField] private TextMeshProUGUI _lecelCurrentText;
     [SerializeField] private TextMeshProUGUI _levelNextText;
 
@@ -21,6 +22,15 @@ public class SpawnChicken : ObjectPool
     private int _activeChikenNow = 0;
     private float timer = 0;
 
+    private void OnEnable()
+    {
+        Chicken.ChickenInBox += SetCountChickenInBox;
+    }
+
+    private void OnDisable()
+    {
+        Chicken.ChickenInBox -= SetCountChickenInBox;
+    }
 
     void Start()
     {
@@ -28,42 +38,16 @@ public class SpawnChicken : ObjectPool
 
         _currentWave.ChickenTemplate.ClearListChickenList();
 
-        Chicken.ChickenInBox += SetCountChickenInBox;
-
         SetWayForChicken();
 
-        Initialize(_currentWave.ChickenTemplate);
+        InitializeChicken(_currentWave.ChickenTemplate);
     }
 
     private void Update()
     {
-        _pastTime += Time.deltaTime;
+        SetChickenWave();
 
-        if (TryGetGameObject(out _currentWave.ChickenTemplate) && _pastTime >= _currentWave.Delay)
-        {
-            if (_currentWave.CountChicken != _activeChikenNow)
-            {
-                SetChicken(_currentWave.ChickenTemplate, transform.position);
-                _pastTime = 0;
-                _activeChikenNow++;
-            }
-        }
-
-        if (_countChickenInBox == _currentWave.CountChicken )
-        {
-            timer += Time.deltaTime;
-            
-            if (timer >= 1)
-            {
-                Time.timeScale = 0;
-                ChangeTextPanelNextLevel();
-                _nextLevel.SetActive(true);
-                _countChickenInBox = 0;
-            }
-
-        }
-
-        SetCaptudeBar(_countChickenInBox);
+        ExitcurrentWave();
     }
 
     private void SetWayForChicken()
@@ -96,21 +80,60 @@ public class SpawnChicken : ObjectPool
         _barCaptureChicken.value = _countChickenInBox;
     }
 
+    private void ChangeTextPanelNextLevel()
+    {
+        _lecelCurrentText.text = "Level " + (1+_indexWave);
+        _levelNextText.text = "Level " + (2+_indexWave);
+    }
+
+    private void SetChickenWave()
+    {
+        _pastTime += Time.deltaTime;
+
+        if (TryGetGameObject(out _currentWave.ChickenTemplate) && _pastTime >= _currentWave.Delay && Time.timeScale > 0)
+        {
+            if (_currentWave.CountChicken != _activeChikenNow)
+            {
+                SetChicken(_currentWave.ChickenTemplate, transform.position);
+                _pastTime = 0;
+                _activeChikenNow++;
+            }
+        }
+    }
+
+    private void ExitcurrentWave()
+    {
+        if (_countChickenInBox == _currentWave.CountChicken)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= 1)
+            {
+                ChangeTextPanelNextLevel();
+                TurnOffChickenTemplate();
+                _nextLevelButton.SetActive(true);
+                _countChickenInBox = 0;
+                _activeChikenNow = 0;
+                timer = 0;
+                _freezButton.SetActive(false);
+                Time.timeScale = 0;
+            }
+        }
+
+        SetCaptudeBar(_countChickenInBox);
+    }
+
     public void ActiveateNextLevel()
     {
-        SetWave(_indexWave++);
+        SetWave(++_indexWave);
         Time.timeScale = 1;
     }
 
-    private void OnDisable()
+    public void GetAgainButton()
     {
-        Chicken.ChickenInBox -= SetCountChickenInBox;
-    }
-
-    private void ChangeTextPanelNextLevel()
-    {
-        _lecelCurrentText.text = "Level " + _indexWave;
-        _levelNextText.text = "Level " + (_indexWave+1);
+        TurnOffChickenTemplate();
+        _countChickenInBox = 0;
+        _activeChikenNow = 0;
     }
 }
 

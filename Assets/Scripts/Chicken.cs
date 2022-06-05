@@ -6,19 +6,41 @@ using UnityEngine.Events;
 public class Chicken : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _restartSpeed;
     [SerializeField] private List<Transform> _targetsWay = new List<Transform>();
-    [SerializeField] private List<Box> _box = new List<Box>();
-
+    [SerializeField] private Box _box;
+    [SerializeField] private ParticleSystem _destroyBoxEffectTemplate;
 
     private SpriteRenderer _chickenSpriteRender;
     private Animator _animator;
-    private Box _currentBox;
     private int _pointTarget;
+    private int _oldPointTarget;
     private float _axisY;
-    private int _clikMouse = 0;
     private float _oldSpeed;
+    private int _click = 0;
+    private ParticleSystem _destroyBoxEffect;
 
     public  static UnityAction<int> ChickenInBox;
+
+    private void Awake()
+    {
+        _destroyBoxEffect = Instantiate(_destroyBoxEffectTemplate, gameObject.transform);
+    }
+
+    private void OnEnable()
+    {
+        _destroyBoxEffectTemplate.gameObject.SetActive(false);
+        _oldSpeed = _speed;
+        _box.DeactiveBox += ReleaseChicken;
+        _box.DeactiveBoxEfect += StartEffectDestroyBox;
+    }
+
+    private void OnDisable()
+    {
+        _box.DeactiveBox -= ReleaseChicken;
+        _box.DeactiveBoxEfect -= StartEffectDestroyBox;
+        Restart();
+    }
 
     private void Start()
     {
@@ -26,7 +48,6 @@ public class Chicken : MonoBehaviour
         _animator = GetComponent<Animator>();
         _pointTarget = Random.Range(0, _targetsWay.Count);
         _axisY = transform.position.y;
-        _oldSpeed = _speed;
     }
 
     private void Update()
@@ -38,23 +59,37 @@ public class Chicken : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _clikMouse++;
-
-        if (_clikMouse == 1)
+        if (_click == 0)
         {
+            _destroyBoxEffect.gameObject.SetActive(false);
             _speed = 0;
-            _currentBox = Instantiate(_box[0], transform.position, Quaternion.identity);
-            _currentBox.DestroyBox += ReleaseChicken;
+            _box.transform.position = transform.position;
+            _box.gameObject.SetActive(true);
             ChickenInBox?.Invoke(1);
+            _click = 1;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Box(Clone)")
+        {
+            _pointTarget = _oldPointTarget;
+            MoveChicken();
+        }
+    }
+
+    private void StartEffectDestroyBox()
+    {
+        _destroyBoxEffect.transform.position = transform.position;
+        _destroyBoxEffect.gameObject.SetActive(true);
     }
 
     private void ReleaseChicken()
     {
+        _click = 0;
         _speed = _oldSpeed;
-        _clikMouse = 0;
         ChickenInBox?.Invoke(-1);
-        _currentBox.DestroyBox += ReleaseChicken;
     }
 
     private void Rotate()
@@ -72,20 +107,11 @@ public class Chicken : MonoBehaviour
 
         if (Vector2.Distance(transform.position, _targetsWay[_pointTarget].transform.position) < 1)
         {
+            _oldPointTarget = _pointTarget;
             _pointTarget = Random.Range(0, _targetsWay.Count);
             transform.position = Vector2.MoveTowards(transform.position, _targetsWay[_pointTarget].transform.position, _speed * Time.deltaTime);
             SetAnimation();
         }
-    }
-
-    public void GetTarget(Transform targetWay)
-    {
-        _targetsWay.Add(targetWay);
-    }
-
-    public void ClearListChickenList()
-    {
-        _targetsWay.Clear();
     }
 
     private void SetAnimation()
@@ -106,5 +132,42 @@ public class Chicken : MonoBehaviour
             _chickenSpriteRender.flipY = true;
             time = 0;
         }
+    }
+
+    private void Restart()
+    {
+        _box.gameObject.SetActive(false);
+        _click = 0;
+    }
+
+    public void UpSpeed()
+    {
+        if (_speed == 0)
+        {
+            _speed = _oldSpeed;
+        }
+
+        _speed += 0.5f;
+    }
+
+    public void RestartSpeed()
+    {
+        _speed = _restartSpeed;
+    }
+
+    public void GetTarget(Transform targetWay)
+    {
+        _targetsWay.Add(targetWay);
+    }
+
+    public void ClearListChickenList()
+    {
+        _targetsWay.Clear();
+    }
+
+    public void CreateBox()
+    {
+        _box = Instantiate(_box, gameObject.transform);
+        _box.gameObject.SetActive(false);
     }
 }
