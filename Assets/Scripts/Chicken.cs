@@ -25,6 +25,7 @@ public class Chicken : MonoBehaviour
     private void Awake()
     {
         _destroyBoxEffect = Instantiate(_destroyBoxEffectTemplate, gameObject.transform);
+        _destroyBoxEffectTemplate.gameObject.SetActive(false);
     }
 
     private void OnEnable()
