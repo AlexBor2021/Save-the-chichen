@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class Box : MonoBehaviour
 {
     [SerializeField] private float _timerSecond;
@@ -15,8 +17,8 @@ public class Box : MonoBehaviour
     private AudioSource _audioSource;
    
 
-    public  UnityAction DeactiveBox;
-    public  UnityAction DeactiveBoxEfect;
+    public event UnityAction DeactiveBox;
+    public event UnityAction DeactiveBoxEfect;
 
 
     private void OnEnable()

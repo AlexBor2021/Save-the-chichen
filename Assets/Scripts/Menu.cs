@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    public const string SampleScene = "SampleScene";
+
     public void OpenPanal(GameObject panal)
     {
         Time.timeScale = 0;
@@ -24,7 +26,7 @@ public class Menu : MonoBehaviour
     
     public void ExitInMenu()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SampleScene);
         Time.timeScale = 1;
     }
 

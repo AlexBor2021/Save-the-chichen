@@ -18,18 +18,19 @@ public class SpawnChicken : ObjectPool
     private Wave _currentWave;
     private float _pastTime;
     private int _indexWave = 0;
-    private int _countChickenInBox = 0;
     private int _activeChikenNow = 0;
     private float timer = 0;
 
+    
+
     private void OnEnable()
     {
-        Chicken.ChickenInBox += SetCountChickenInBox;
+        
     }
 
     private void OnDisable()
     {
-        Chicken.ChickenInBox -= SetCountChickenInBox;
+       
     }
 
     void Start()
@@ -69,10 +70,6 @@ public class SpawnChicken : ObjectPool
         _currentWave = _waves[indexWave];
     }
 
-    private void SetCountChickenInBox(int index)
-    {
-        _countChickenInBox += index;
-    }
 
     private void SetCaptudeBar(int countChickenInBox)
     {

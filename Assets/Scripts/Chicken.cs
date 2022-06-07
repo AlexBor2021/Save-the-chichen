@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+
+
 public class Chicken : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -20,7 +24,9 @@ public class Chicken : MonoBehaviour
     private int _click = 0;
     private ParticleSystem _destroyBoxEffect;
 
-    public  static UnityAction<int> ChickenInBox;
+    public const string Horizontal = "Horizontal";
+
+    public event UnityAction<int> ChickenInBox;
 
     private void Awake()
     {
@@ -73,7 +79,7 @@ public class Chicken : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Box(Clone)")
+        if (collision.TryGetComponent<Box>(out Box box))
         {
             _pointTarget = _oldPointTarget;
             MoveChicken();
@@ -123,13 +129,13 @@ public class Chicken : MonoBehaviour
         {
             _axisY = transform.position.y;
             _chickenSpriteRender.flipY = false;
-            _animator.SetFloat("Horizontal", -1);
+            _animator.SetFloat(Horizontal, -1);
             time = 0;
         }
         else
         {
             _axisY = transform.position.y;
-            _animator.SetFloat("Horizontal", 1);
+            _animator.SetFloat(Horizontal, 1);
             _chickenSpriteRender.flipY = true;
             time = 0;
         }
@@ -166,9 +172,9 @@ public class Chicken : MonoBehaviour
         _targetsWay.Clear();
     }
 
-    public void CreateBox()
+    public void SetBox(Box box)
     {
-        _box = Instantiate(_box, gameObject.transform);
+        _box = box;
         _box.gameObject.SetActive(false);
     }
 }

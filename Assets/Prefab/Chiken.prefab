@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -6271328907158683802}
   - component: {fileID: 3022354483468869292}
   - component: {fileID: 6692845466182643686}
+  - component: {fileID: 585253437267441833}
   m_Layer: 0
   m_Name: Chiken
   m_TagString: Untagged
@@ -305,3 +306,17 @@ PolygonCollider2D:
       - {x: 0.4689944, y: -0.13467059}
       - {x: 0.4189822, y: -0.0051404536}
       - {x: 0.2699759, y: 0.17671089}
+--- !u!114 &585253437267441833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953405333313950180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8998d2a913aef498572d8bb252894c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnChicken: {fileID: 0}
+  _chicken: {fileID: -7797346593192844885}

@@ -38,7 +38,7 @@ public class FreezButton : MonoBehaviour
             yield return null;
         }
         _click = 0;
-        StopCoroutine(ActiveTimerForFreezTime(_recoveryFreezTime));
+        StopCoroutine(_timerForFreezTime);
     }
 
     public void FreezTime()
@@ -51,10 +51,5 @@ public class FreezButton : MonoBehaviour
             _click++;
             _image.fillAmount = 0;
         }
-    }
-
-    private void StopCorotine(Coroutine corotine)
-    {
-        StopCoroutine(corotine);
     }
 }
