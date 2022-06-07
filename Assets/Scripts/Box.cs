@@ -15,11 +15,9 @@ public class Box : MonoBehaviour
     private float _lasttime;
     private bool _create;
     private AudioSource _audioSource;
-   
 
     public event UnityAction DeactiveBox;
     public event UnityAction DeactiveBoxEfect;
-
 
     private void OnEnable()
     {
