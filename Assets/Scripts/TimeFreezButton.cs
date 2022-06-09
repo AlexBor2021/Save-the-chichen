@@ -5,13 +5,16 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 
-public class FreezButton : MonoBehaviour
+public class TimeFreezButton : MonoBehaviour
 {
     [SerializeField] private float _recoveryFreezTime;
-    [SerializeField] private float _actonFreez;
+    [SerializeField] private float _actionFreez;
 
+    private float _speedByFreez = 0.2f;
     private Image _image;
     private float _click;
+    private float _startValue = 1;
+    private float _endValue = 0;
     private Coroutine _timerForFreezTime;
     
     private void OnEnable()
@@ -21,19 +24,18 @@ public class FreezButton : MonoBehaviour
         _image.fillAmount = 1;
     }
 
-    private IEnumerator ActiveTimerForFreezTime(float duration)
+    private IEnumerator ActiveTimerForFreezTime(float duration, float startValue, float endValue)
     {
         float elapsedTime = 0;
 
         while (elapsedTime < duration)
         {
-            Debug.Log(elapsedTime);
-            var nextvalue = Mathf.Lerp(0, 1, elapsedTime/duration);
+            var nextvalue = Mathf.Lerp(startValue, endValue, elapsedTime/duration);
             _image.fillAmount = nextvalue;
             elapsedTime += Time.deltaTime;
-            if (elapsedTime >= _actonFreez)
+            if (elapsedTime >= _actionFreez)
             {
-                Time.timeScale = 1f;
+                Time.timeScale = 1;
             }
             yield return null;
         }
@@ -45,8 +47,8 @@ public class FreezButton : MonoBehaviour
     {
         if (_click == 0)
         {
-            Time.timeScale = 0.2f;
-            _timerForFreezTime = StartCoroutine(ActiveTimerForFreezTime(_recoveryFreezTime));
+            Time.timeScale = _speedByFreez;
+            _timerForFreezTime = StartCoroutine(ActiveTimerForFreezTime(_recoveryFreezTime, _startValue, _endValue));
             _click++;
             _image.fillAmount = 0;
         }

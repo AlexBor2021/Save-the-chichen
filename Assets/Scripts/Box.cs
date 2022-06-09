@@ -13,7 +13,7 @@ public class Box : MonoBehaviour
     [SerializeField] private AudioClip _chickenSounds;
 
     private float _lasttime;
-    private bool _create;
+    private float _timerSecondForEffect => _timerSecond-1;
     private AudioSource _audioSource;
 
     public event UnityAction DeactiveBox;
@@ -22,7 +22,6 @@ public class Box : MonoBehaviour
     private void OnEnable()
     {
         _lasttime = 0;
-        _create = true;
     }
 
     private void Start()
@@ -33,7 +32,7 @@ public class Box : MonoBehaviour
     private void Update()
     {
         _lasttime += Time.deltaTime;
-        if (_lasttime >= _timerSecond-1)
+        if (_lasttime >= _timerSecondForEffect)
         {
             DeactiveBoxEfect?.Invoke();
         }

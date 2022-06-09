@@ -6,14 +6,12 @@ using UnityEngine.Events;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 
-
 public class Chicken : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _restartSpeed;
     [SerializeField] private List<Transform> _targetsWay = new List<Transform>();
     [SerializeField] private Box _box;
-    [SerializeField] private ParticleSystem _destroyBoxEffectTemplate;
 
     private SpriteRenderer _chickenSpriteRender;
     private Animator _animator;
@@ -24,8 +22,8 @@ public class Chicken : MonoBehaviour
     private float _valueUpSpeed = 0.5f;
     private float _distanceToPoint = 1f;
     private int _click = 0;
-    private ParticleSystem _destroyBoxEffect;
 
+    public Box Box => _box;
     public const string Horizontal = "Horizontal";
 
     public event UnityAction<int> ChickenInBox;
@@ -36,24 +34,15 @@ public class Chicken : MonoBehaviour
         no = -1,
     }
 
-    private void Awake()
-    {
-        _destroyBoxEffect = Instantiate(_destroyBoxEffectTemplate, gameObject.transform);
-        _destroyBoxEffectTemplate.gameObject.SetActive(false);
-    }
-
     private void OnEnable()
     {
-        _destroyBoxEffectTemplate.gameObject.SetActive(false);
         _oldSpeed = _speed;
         _box.DeactiveBox += ReleaseChicken;
-        _box.DeactiveBoxEfect += StartEffectDestroyBox;
     }
 
     private void OnDisable()
     {
         _box.DeactiveBox -= ReleaseChicken;
-        _box.DeactiveBoxEfect -= StartEffectDestroyBox;
         Restart();
     }
 
@@ -71,12 +60,10 @@ public class Chicken : MonoBehaviour
         Rotate();
     }
 
-
     private void OnMouseDown()
     {
         if (_click == 0)
         {
-            _destroyBoxEffect.gameObject.SetActive(false);
             _speed = 0;
             _box.transform.position = transform.position;
             _box.gameObject.SetActive(true);
@@ -92,12 +79,6 @@ public class Chicken : MonoBehaviour
             _pointTarget = _oldPointTarget;
             MoveChicken();
         }
-    }
-
-    private void StartEffectDestroyBox()
-    {
-        _destroyBoxEffect.transform.position = transform.position;
-        _destroyBoxEffect.gameObject.SetActive(true);
     }
 
     private void ReleaseChicken()

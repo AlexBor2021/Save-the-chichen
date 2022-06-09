@@ -36,7 +36,6 @@ public class ObjectPool : MonoBehaviour
     protected void SetCountChickenInBox(int index)
     {
         _countChickenInBox += index;
-        Debug.Log(_countChickenInBox);
     }
 
     protected void TurnOffChickenTemplate()
