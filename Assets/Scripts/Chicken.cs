@@ -21,12 +21,20 @@ public class Chicken : MonoBehaviour
     private int _oldPointTarget;
     private float _axisY;
     private float _oldSpeed;
+    private float _valueUpSpeed = 0.5f;
+    private float _distanceToPoint = 1f;
     private int _click = 0;
     private ParticleSystem _destroyBoxEffect;
 
     public const string Horizontal = "Horizontal";
 
     public event UnityAction<int> ChickenInBox;
+    
+    enum ValueChikenInBox
+    {
+        yes = 1,
+        no = -1,
+    }
 
     private void Awake()
     {
@@ -72,7 +80,7 @@ public class Chicken : MonoBehaviour
             _speed = 0;
             _box.transform.position = transform.position;
             _box.gameObject.SetActive(true);
-            ChickenInBox?.Invoke(1);
+            ChickenInBox?.Invoke((int)ValueChikenInBox.yes);
             _click = 1;
         }
     }
@@ -96,7 +104,7 @@ public class Chicken : MonoBehaviour
     {
         _click = 0;
         _speed = _oldSpeed;
-        ChickenInBox?.Invoke(-1);
+        ChickenInBox?.Invoke((int)ValueChikenInBox.no);
     }
 
     private void Rotate()
@@ -112,7 +120,7 @@ public class Chicken : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, _targetsWay[_pointTarget].transform.position, _speed * Time.deltaTime);
         SetAnimation();
 
-        if (Vector2.Distance(transform.position, _targetsWay[_pointTarget].transform.position) < 1)
+        if (Vector2.Distance(transform.position, _targetsWay[_pointTarget].transform.position) < _distanceToPoint)
         {
             _oldPointTarget = _pointTarget;
             _pointTarget = Random.Range(0, _targetsWay.Count);
@@ -154,7 +162,7 @@ public class Chicken : MonoBehaviour
             _speed = _oldSpeed;
         }
 
-        _speed += 0.5f;
+        _speed += _valueUpSpeed;
     }
 
     public void RestartSpeed()

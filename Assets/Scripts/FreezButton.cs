@@ -45,7 +45,6 @@ public class FreezButton : MonoBehaviour
     {
         if (_click == 0)
         {
-            Debug.Log(2);
             Time.timeScale = 0.2f;
             _timerForFreezTime = StartCoroutine(ActiveTimerForFreezTime(_recoveryFreezTime));
             _click++;

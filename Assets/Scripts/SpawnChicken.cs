@@ -21,18 +21,6 @@ public class SpawnChicken : ObjectPool
     private int _activeChikenNow = 0;
     private float timer = 0;
 
-    
-
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDisable()
-    {
-       
-    }
-
     void Start()
     {
         SetWave(_indexWave);
