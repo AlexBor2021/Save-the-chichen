@@ -2,7 +2,5 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TatgetWay : MonoBehaviour
-{
-    
-}
+public class TatgetWay : MonoBehaviour {}
+

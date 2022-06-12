@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953405333313950180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.64947, y: 0.23621172, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.89757, y: 0.89757, z: 0.89757}
   m_Children: []
   m_Father: {fileID: 0}
@@ -141,7 +141,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _box: {fileID: 2278036686746968912, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
+  _boxChicken:
+    TemplayBox: {fileID: 51139001693230130, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
+    Box: {fileID: 4061642484448450784, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
 --- !u!82 &-6271328907158683802
 AudioSource:
   m_ObjectHideFlags: 0
@@ -318,4 +320,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyBoxEffectTemplate: {fileID: 5016970997029741642, guid: 55136c69f5b95ad43b46f11a87834b12, type: 3}
-  _chicken: {fileID: -7797346593192844885}

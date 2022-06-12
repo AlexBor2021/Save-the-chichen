@@ -5113,6 +5113,7 @@ MonoBehaviour:
   _containerChicken: {fileID: 1559503488}
   _capasity: 15
   _box: {fileID: 2278036686746968912, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
+  _templayBox: {fileID: 51139001693230130, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
   _waves:
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 1

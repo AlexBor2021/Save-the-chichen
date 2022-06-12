@@ -7,7 +7,8 @@ public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject _containerChicken;
     [SerializeField] private int _capasity;
-    [SerializeField] private Box _box;
+    [SerializeField] private GameObject _templayBox;
+
 
     protected int _countChickenInBox;
     private List<Chicken> _poolChicken = new List<Chicken>();
@@ -26,10 +27,10 @@ public class ObjectPool : MonoBehaviour
         {
             Chicken spawned = Instantiate(prefab, _containerChicken.transform);
             spawned.ChickenInBox += SetCountChickenInBox;
-            var box = Instantiate(_box, spawned.transform);
-            spawned.SetBox(box);
-            spawned.gameObject.SetActive(false);
+            var templayBox = Instantiate(_templayBox, spawned.transform);
+            spawned.SetTemplayBox(templayBox);
             _poolChicken.Add(spawned);
+            spawned.gameObject.SetActive(false);
         }
     }
 

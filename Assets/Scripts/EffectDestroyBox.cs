@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EffectDestroyBox : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _destroyBoxEffectTemplate;
     
     private Box _box;
     private ParticleSystem _destroyBoxEffect;
+    private Chicken _chicken;
 
     private void Awake()
     {

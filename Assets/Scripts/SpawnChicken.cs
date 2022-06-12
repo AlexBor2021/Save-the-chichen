@@ -21,7 +21,7 @@ public class SpawnChicken : ObjectPool
     private int _activeChikenNow = 0;
     private float timer = 0;
 
-    void Start()
+    private void Start()
     {
         SetWave(_indexWave);
 
@@ -37,6 +37,19 @@ public class SpawnChicken : ObjectPool
         SetChickenWave();
 
         ExitcurrentWave();
+    }
+
+    public void ActiveateNextLevel()
+    {
+        SetWave(++_indexWave);
+        Time.timeScale = 1;
+    }
+
+    public void GetAgainButton()
+    {
+        TurnOffChickenTemplate();
+        _countChickenInBox = 0;
+        _activeChikenNow = 0;
     }
 
     private void SetWayForChicken()
@@ -57,7 +70,6 @@ public class SpawnChicken : ObjectPool
     {
         _currentWave = _waves[indexWave];
     }
-
 
     private void SetCaptudeBar(int countChickenInBox)
     {
@@ -106,19 +118,6 @@ public class SpawnChicken : ObjectPool
         }
 
         SetCaptudeBar(_countChickenInBox);
-    }
-
-    public void ActiveateNextLevel()
-    {
-        SetWave(++_indexWave);
-        Time.timeScale = 1;
-    }
-
-    public void GetAgainButton()
-    {
-        TurnOffChickenTemplate();
-        _countChickenInBox = 0;
-        _activeChikenNow = 0;
     }
 }
 
