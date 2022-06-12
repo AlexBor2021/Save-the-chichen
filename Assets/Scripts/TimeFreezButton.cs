@@ -10,12 +10,12 @@ public class TimeFreezButton : MonoBehaviour
     [SerializeField] private float _recoveryFreezTime;
     [SerializeField] private float _actionFreez;
 
-    private float _speedByFreez = 0.2f;
     private Image _image;
+    private Coroutine _timerForFreezTime;
     private float _click;
     private float _startValue = 1;
     private float _endValue = 0;
-    private Coroutine _timerForFreezTime;
+    private float _speedByFreez = 0.2f;
     
     private void OnEnable()
     {
