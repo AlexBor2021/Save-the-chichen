@@ -235,8 +235,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1224580598}
-        m_TargetAssemblyTypeName: SpawnChicken, Assembly-CSharp
+      - m_Target: {fileID: 1224580601}
+        m_TargetAssemblyTypeName: SettingMenu, Assembly-CSharp
         m_MethodName: ActiveateNextLevel
         m_Mode: 1
         m_Arguments:
@@ -392,8 +392,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1224580598}
-        m_TargetAssemblyTypeName: SpawnChicken, Assembly-CSharp
+      - m_Target: {fileID: 1224580601}
+        m_TargetAssemblyTypeName: SettingMenu, Assembly-CSharp
         m_MethodName: GetAgainButton
         m_Mode: 1
         m_Arguments:
@@ -5091,6 +5091,7 @@ GameObject:
   - component: {fileID: 1224580600}
   - component: {fileID: 1224580604}
   - component: {fileID: 1224580603}
+  - component: {fileID: 1224580601}
   m_Layer: 0
   m_Name: SpouwnChiken
   m_TagString: Untagged
@@ -5112,7 +5113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _containerChicken: {fileID: 1559503488}
   _capasity: 15
-  _box: {fileID: 2278036686746968912, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
   _templayBox: {fileID: 51139001693230130, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
   _waves:
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
@@ -5171,11 +5171,6 @@ MonoBehaviour:
   - {fileID: 1259332802}
   - {fileID: 1374161016}
   - {fileID: 1626472695}
-  _barCaptureChicken: {fileID: 2130907237}
-  _nextLevelButton: {fileID: 294575036}
-  _freezButton: {fileID: 893572618}
-  _lecelCurrentText: {fileID: 1511868907}
-  _levelNextText: {fileID: 967008536}
 --- !u!4 &1224580599
 Transform:
   m_ObjectHideFlags: 0
@@ -5287,6 +5282,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1224580601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224580597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18cce8f918035c499ec8006938f6004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _barCaptureChicken: {fileID: 2130907237}
+  _nextLevelButton: {fileID: 294575036}
+  _freezButton: {fileID: 893572618}
+  _lecelCurrentText: {fileID: 1511868907}
+  _levelNextText: {fileID: 967008536}
 --- !u!95 &1224580603
 Animator:
   serializedVersion: 3

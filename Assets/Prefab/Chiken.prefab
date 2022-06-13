@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 1211513067322809464}
   - component: {fileID: 6990714006448098094}
   - component: {fileID: -7797346593192844885}
+  - component: {fileID: -3445598418501834515}
+  - component: {fileID: 8623078321213097274}
   - component: {fileID: -6271328907158683802}
   - component: {fileID: 3022354483468869292}
   - component: {fileID: 6692845466182643686}
-  - component: {fileID: 8623078321213097274}
   m_Layer: 0
   m_Name: Chiken
   m_TagString: Untagged
@@ -144,6 +145,38 @@ MonoBehaviour:
   _boxChicken:
     TemplayBox: {fileID: 51139001693230130, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
     Box: {fileID: 4061642484448450784, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
+--- !u!114 &-3445598418501834515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953405333313950180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c846d2e1f8c0cd540a72d6938a8cf1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0
+  _restartSpeed: 0
+  _targetsWay: []
+  _boxChicken:
+    TemplayBox: {fileID: 0}
+    Box: {fileID: 0}
+  _restartSpeed: 0
+--- !u!114 &8623078321213097274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953405333313950180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac32de3691f03342b4030be278caf37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyBoxEffectTemplate: {fileID: 5016970997029741642, guid: 55136c69f5b95ad43b46f11a87834b12, type: 3}
 --- !u!82 &-6271328907158683802
 AudioSource:
   m_ObjectHideFlags: 0
@@ -307,16 +340,3 @@ PolygonCollider2D:
       - {x: 0.4689944, y: -0.13467059}
       - {x: 0.4189822, y: -0.0051404536}
       - {x: 0.2699759, y: 0.17671089}
---- !u!114 &8623078321213097274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953405333313950180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aac32de3691f03342b4030be278caf37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _destroyBoxEffectTemplate: {fileID: 5016970997029741642, guid: 55136c69f5b95ad43b46f11a87834b12, type: 3}

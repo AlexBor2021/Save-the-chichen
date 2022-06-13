@@ -11,8 +11,8 @@ public class Chicken : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _restartSpeed;
     [SerializeField] private List<Transform> _targetsWay = new List<Transform>();
-
     [SerializeField] private BoxChicken _boxChicken;
+
     private SpriteRenderer _chickenSpriteRender;
     private Animator _animator;
     private int _pointTarget;
@@ -29,9 +29,9 @@ public class Chicken : MonoBehaviour
 
     public const string Horizontal = "Horizontal";
 
-    public event UnityAction<int> ChickenInBox;
+    public event UnityAction<int> ChickenCaught;
     
-    enum ValueChikenInBox
+    enum ÑaughtChicken
     {
         yes = 1,
         no = -1,
@@ -41,21 +41,18 @@ public class Chicken : MonoBehaviour
     {
         _oldSpeed = _speed;
         _boxChicken.Box = _boxChicken.TemplayBox.GetComponent<Box>();
-        _boxChicken.Box.DeactiveBox += ReleaseChicken;
-    }
-
-    private void OnDisable()
-    {
-        _boxChicken.Box.DeactiveBox -= ReleaseChicken;
-        Restart();
-    }
-
-    private void Start()
-    {
+        _boxChicken.Box.BoxDestroaed += ReleaseChicken;
         _chickenSpriteRender = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _pointTarget = Random.Range(0, _targetsWay.Count);
         _axisY = transform.position.y;
+    }
+
+    private void OnDisable()
+    {
+        _boxChicken.Box.BoxDestroaed -= ReleaseChicken;
+        _click = 0;
+        _boxChicken.TemplayBox.SetActive(false);
     }
 
     private void Update()
@@ -71,7 +68,7 @@ public class Chicken : MonoBehaviour
             _speed = 0;
             _boxChicken.TemplayBox.transform.position = transform.position;
             _boxChicken.TemplayBox.SetActive(true);
-            ChickenInBox?.Invoke((int)ValueChikenInBox.yes);
+            ChickenCaught?.Invoke((int)ÑaughtChicken.yes);
             _click = 1;
         }
     }
@@ -100,11 +97,6 @@ public class Chicken : MonoBehaviour
         _speed += _valueUpSpeed;
     }
 
-    public void RestartSpeed()
-    {
-        _speed = _restartSpeed;
-    }
-
     public void GetTarget(Transform targetWay)
     {
         _targetsWay.Add(targetWay);
@@ -119,7 +111,7 @@ public class Chicken : MonoBehaviour
     {
         _click = 0;
         _speed = _oldSpeed;
-        ChickenInBox?.Invoke((int)ValueChikenInBox.no);
+        ChickenCaught?.Invoke((int)ÑaughtChicken.no);
     }
 
     private void Rotate()
@@ -163,13 +155,6 @@ public class Chicken : MonoBehaviour
             time = 0;
         }
     }
-
-    private void Restart()
-    {
-        _boxChicken.TemplayBox.SetActive(false);
-        _click = 0;
-    }
-
 }
 
 [System.Serializable]

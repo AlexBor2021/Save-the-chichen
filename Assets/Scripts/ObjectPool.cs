@@ -9,15 +9,17 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private int _capasity;
     [SerializeField] private GameObject _templayBox;
 
-
+    protected int _activeChikenNow = 0;
     protected int _countChickenInBox;
     private List<Chicken> _poolChicken = new List<Chicken>();
+    
+    public int CountChickenInBox => _countChickenInBox;
 
     private void OnDisable()
     {
         foreach (var chicken in _poolChicken)
         {
-            chicken.ChickenInBox -= SetCountChickenInBox;
+            chicken.ChickenCaught -= SetCountChickenInBox;
         }
     }
 
@@ -26,7 +28,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < _capasity; i++)
         {
             Chicken spawned = Instantiate(prefab, _containerChicken.transform);
-            spawned.ChickenInBox += SetCountChickenInBox;
+            spawned.ChickenCaught += SetCountChickenInBox;
             var templayBox = Instantiate(_templayBox, spawned.transform);
             spawned.SetTemplayBox(templayBox);
             _poolChicken.Add(spawned);

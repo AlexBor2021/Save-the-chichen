@@ -10,6 +10,7 @@ public class EffectDestroyBox : MonoBehaviour
     private Box _box;
     private ParticleSystem _destroyBoxEffect;
     private Chicken _chicken;
+    private float _timerPlayEffect = 2f;
 
     private void Awake()
     {
@@ -20,30 +21,24 @@ public class EffectDestroyBox : MonoBehaviour
     {
         _destroyBoxEffectTemplate.gameObject.SetActive(false);
         _box = GetComponentInParent<Chicken>().Box;
-        _box.DeactiveBoxEfect += StartEffectDestroyBox;
+        _box.EffectActivated += StartEffectDestroyBox;
     }
 
     private void OnDisable()
     {
-        _box.DeactiveBoxEfect -= StartEffectDestroyBox;
-    }
-
-    private void Update()
-    {
-        OffEffect();
+        _box.EffectActivated -= StartEffectDestroyBox;
     }
 
     private void OffEffect()
     {
-        if (_destroyBoxEffect.isStopped)
-        {
-            _destroyBoxEffect.gameObject.SetActive(false);
-        }
+        _destroyBoxEffect.gameObject.SetActive(false);
+        Debug.Log(1);
     }
 
     private void StartEffectDestroyBox()
     {
         _destroyBoxEffect.transform.position = transform.position;
         _destroyBoxEffect.gameObject.SetActive(true);
+        Invoke("OffEffect", _timerPlayEffect);
     }
 }
