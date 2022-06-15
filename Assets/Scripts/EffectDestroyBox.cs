@@ -12,6 +12,8 @@ public class EffectDestroyBox : MonoBehaviour
     private Chicken _chicken;
     private float _timerPlayEffect = 2f;
 
+    private string _offEffect = nameof(OffEffect);
+
     private void Awake()
     {
         _destroyBoxEffect = Instantiate(_destroyBoxEffectTemplate, gameObject.transform);
@@ -32,13 +34,12 @@ public class EffectDestroyBox : MonoBehaviour
     private void OffEffect()
     {
         _destroyBoxEffect.gameObject.SetActive(false);
-        Debug.Log(1);
     }
 
     private void StartEffectDestroyBox()
     {
         _destroyBoxEffect.transform.position = transform.position;
         _destroyBoxEffect.gameObject.SetActive(true);
-        Invoke("OffEffect", _timerPlayEffect);
+        Invoke(_offEffect, _timerPlayEffect);
     }
 }

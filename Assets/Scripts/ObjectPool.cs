@@ -19,7 +19,7 @@ public class ObjectPool : MonoBehaviour
     {
         foreach (var chicken in _poolChicken)
         {
-            chicken.ChickenCaught -= SetCountChickenInBox;
+            chicken.ChickenCaught -= SetCaughtChicken;
         }
     }
 
@@ -28,15 +28,15 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < _capasity; i++)
         {
             Chicken spawned = Instantiate(prefab, _containerChicken.transform);
-            spawned.ChickenCaught += SetCountChickenInBox;
+            spawned.ChickenCaught += SetCaughtChicken;
             var templayBox = Instantiate(_templayBox, spawned.transform);
-            spawned.SetTemplayBox(templayBox);
+            spawned.SetBox(templayBox);
             _poolChicken.Add(spawned);
             spawned.gameObject.SetActive(false);
         }
     }
 
-    protected void SetCountChickenInBox(int index)
+    protected void SetCaughtChicken(int index)
     {
         _countChickenInBox += index;
     }
@@ -45,8 +45,6 @@ public class ObjectPool : MonoBehaviour
     {
         foreach (var chicken in _poolChicken)
         {
-            chicken.UpSpeed();
-
             if (chicken.gameObject)
             {
                 chicken.gameObject.SetActive(false);

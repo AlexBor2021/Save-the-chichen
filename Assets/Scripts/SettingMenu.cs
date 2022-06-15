@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(SpawnChicken))]
+[RequireComponent(typeof(GenerationChicken))]
 
 public class SettingMenu : MonoBehaviour
 {
@@ -14,11 +14,11 @@ public class SettingMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _lecelCurrentText;
     [SerializeField] private TextMeshProUGUI _levelNextText;
 
-    private SpawnChicken _spawnChicken;
+    private GenerationChicken _spawnChicken;
 
     private void OnEnable()
     {
-        _spawnChicken = GetComponentInParent<SpawnChicken>();
+        _spawnChicken = GetComponentInParent<GenerationChicken>();
     }
 
     private void Update()

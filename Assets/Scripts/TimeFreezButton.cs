@@ -13,8 +13,8 @@ public class TimeFreezButton : MonoBehaviour
     private Image _image;
     private Coroutine _timerForFreezTime;
     private float _click;
-    private float _startValue = 1;
-    private float _endValue = 0;
+    private float _startValue = 0;
+    private float _endValue = 1;
     private float _speedByFreez = 0.2f;
     
     private void OnEnable()
@@ -48,9 +48,9 @@ public class TimeFreezButton : MonoBehaviour
         if (_click == 0)
         {
             Time.timeScale = _speedByFreez;
-            _timerForFreezTime = StartCoroutine(ActiveTimerForFreezTime(_recoveryFreezTime, _startValue, _endValue));
             _click++;
             _image.fillAmount = 0;
+            _timerForFreezTime = StartCoroutine(ActiveTimerForFreezTime(_recoveryFreezTime, _startValue, _endValue));
         }
     }
 }

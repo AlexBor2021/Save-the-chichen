@@ -12,8 +12,7 @@ public class Box : MonoBehaviour
     [SerializeField] private AudioClip _fellBox;
     [SerializeField] private AudioClip _chickenSounds;
 
-    private bool _isWork;
-    private float _lastTime;
+    private Coroutine _destroyBox;
     private float _timerSecondForEffect => _timerSecond-1;
     private AudioSource _audioSource;
 
@@ -22,31 +21,19 @@ public class Box : MonoBehaviour
 
     private void OnEnable()
     {
-        _isWork = true;
-        _lastTime = 0;
-    }
-
-    private void Start()
-    {
         _audioSource = GetComponent<AudioSource>();
+        _destroyBox = StartCoroutine(DestroyBox());
     }
 
-    private void Update()
+    private IEnumerator DestroyBox()
     {
-        _lastTime += Time.deltaTime;
-
-        if (_lastTime >= _timerSecond)
-        {
-            StartDestroyBox();
-        }
-        else if (_lastTime >= _timerSecondForEffect && _isWork)
-        {
-            EffectActivated?.Invoke();
-            _isWork = false;
-        }
+        yield return new WaitForSecondsRealtime(_timerSecondForEffect);
+        EffectActivated?.Invoke();
+        yield return new WaitForSecondsRealtime(_timerSecond-_timerSecondForEffect);
+        StartDestroyBox();
     }
 
-    public void StartingAudio()
+    public void LaunchgAudio()
     {
         _audioSource.PlayOneShot(_fellBox);
         _audioSource.PlayOneShot(_chickenSounds);
@@ -55,6 +42,7 @@ public class Box : MonoBehaviour
     private void StartDestroyBox()
     {
         BoxDestroaed?.Invoke();
+        StopCoroutine(_destroyBox);
         gameObject.SetActive(false);
         AudioSource.PlayClipAtPoint(_crashBox, transform.position);
     }

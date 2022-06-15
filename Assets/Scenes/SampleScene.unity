@@ -3899,7 +3899,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 893572623}
-        m_TargetAssemblyTypeName: FreezButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: TimeFreezButton, Assembly-CSharp
         m_MethodName: FreezTime
         m_Mode: 1
         m_Arguments:
@@ -3960,8 +3960,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73adbe27ca8ae744e90e3e780bcc1b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoveryFreezTime: 2
-  _actionFreez: 0
+  _recoveryFreezTime: 10
+  _actionFreez: 2
 --- !u!1 &913440009
 GameObject:
   m_ObjectHideFlags: 0
@@ -5116,40 +5116,28 @@ MonoBehaviour:
   _templayBox: {fileID: 51139001693230130, guid: a938719f81ec9044e9c3384d5f1d9190, type: 3}
   _waves:
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
+    MoveChicken: {fileID: -2107218066581254219, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 1
     Delay: 1
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
+    MoveChicken: {fileID: -2107218066581254219, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 2
     Delay: 1
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
+    MoveChicken: {fileID: -2107218066581254219, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 3
     Delay: 1
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
+    MoveChicken: {fileID: -2107218066581254219, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 4
     Delay: 1
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
+    MoveChicken: {fileID: -2107218066581254219, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 5
     Delay: 1
   - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
+    MoveChicken: {fileID: -2107218066581254219, guid: 4267403c77840714690362e5f88176ce, type: 3}
     CountChicken: 6
-    Delay: 1
-  - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CountChicken: 7
-    Delay: 1
-  - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CountChicken: 8
-    Delay: 1
-  - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CountChicken: 9
-    Delay: 1
-  - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CountChicken: 10
-    Delay: 1
-  - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CountChicken: 11
-    Delay: 1
-  - ChickenTemplate: {fileID: -7797346593192844885, guid: 4267403c77840714690362e5f88176ce, type: 3}
-    CountChicken: 12
     Delay: 1
   _targetWay:
   - {fileID: 154679485}
