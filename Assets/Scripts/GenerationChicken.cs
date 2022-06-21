@@ -15,7 +15,8 @@ public class GenerationChicken : ObjectPool
     private float _pastTime;
     private int _indexWave = 0;
     private float timer = 0;
-    
+    private float _delay = 1; 
+
     public int IndexWave => _indexWave;
     public Wave CurrentWave => _currentWave;
 
@@ -43,8 +44,8 @@ public class GenerationChicken : ObjectPool
     public void ZeroingLevel()
     {
         TurnOffChickenTemplate();
-        _countChickenInBox = 0;
-        _activeChikenNow = 0;
+        CountChickenInBox = 0;
+        ActiveChikenNow = 0;
     }
 
     public void SetWave(int indexWave)
@@ -72,23 +73,24 @@ public class GenerationChicken : ObjectPool
 
         if (TryGetGameObject(out _currentWave.ChickenTemplate) && _pastTime >= _currentWave.Delay && Time.timeScale > 0)
         {
-            if (_currentWave.CountChicken != _activeChikenNow)
+            if (_currentWave.CountChicken != ActiveChikenNow)
             {
                 SetChicken(_currentWave.ChickenTemplate, transform.position);
                 _pastTime = 0;
-                _activeChikenNow++;
+                ActiveChikenNow++;
             }
         }
     }
 
     private void ExitÑurrentWave()
     {
-        if (_countChickenInBox == _currentWave.CountChicken)
+        if (CountChickeninBox == _currentWave.CountChicken)
         {
             timer += Time.deltaTime;
 
-            if (timer >= 1)
+            if (timer >= _delay)
             {
+                _indexWave++;
                 _settingMenu.EndWave();
                 ZeroingLevel();
                 timer = 0;

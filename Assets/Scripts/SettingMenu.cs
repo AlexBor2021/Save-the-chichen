@@ -14,11 +14,13 @@ public class SettingMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _lecelCurrentText;
     [SerializeField] private TextMeshProUGUI _levelNextText;
 
-    private GenerationChicken _spawnChicken;
+    private GenerationChicken _generationChicken;
+    private int _levelNextTekst => 1 + _generationChicken.IndexWave;
+    private int _normalTime = 1;
 
     private void OnEnable()
     {
-        _spawnChicken = GetComponentInParent<GenerationChicken>();
+        _generationChicken = GetComponentInParent<GenerationChicken>();
     }
 
     private void Update()
@@ -28,25 +30,25 @@ public class SettingMenu : MonoBehaviour
 
     public void ActiveateNextLevel()
     {
-        _spawnChicken.SetWave(1+_spawnChicken.IndexWave);
-        Time.timeScale = 1;
+        _generationChicken.SetWave(_generationChicken.IndexWave);
+        Time.timeScale = _normalTime;
     }
 
     public void GetAgainButton()
     {
-        _spawnChicken.ZeroingLevel();
+        _generationChicken.ZeroingLevel();
     }
 
     private void SetCaptudeBar()
     {
-        _barCaptureChicken.maxValue = _spawnChicken.CurrentWave.CountChicken;
-        _barCaptureChicken.value = _spawnChicken.CountChickenInBox;
+        _barCaptureChicken.maxValue = _generationChicken.CurrentWave.CountChicken;
+        _barCaptureChicken.value = _generationChicken.CountChickeninBox;
     }
 
     private void ChangeTextPanelNextLevel()
     {
-        _lecelCurrentText.text = "Level " + (1 + _spawnChicken.IndexWave);
-        _levelNextText.text = "Level " + (2 + _spawnChicken.IndexWave);
+        _lecelCurrentText.text = "Level " + (_generationChicken.IndexWave);
+        _levelNextText.text = "Level " + (_levelNextTekst);
     }
 
     public void EndWave()

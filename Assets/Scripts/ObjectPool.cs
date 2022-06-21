@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject _containerChicken;
     [SerializeField] private int _capasity;
     [SerializeField] private GameObject _templayBox;
 
-    protected int _activeChikenNow = 0;
-    protected int _countChickenInBox;
+    protected int ActiveChikenNow = 0;
+    protected int CountChickenInBox;
     private List<Chicken> _poolChicken = new List<Chicken>();
     
-    public int CountChickenInBox => _countChickenInBox;
+    public int CountChickeninBox => CountChickenInBox;
 
     private void OnDisable()
     {
@@ -38,7 +39,7 @@ public class ObjectPool : MonoBehaviour
 
     protected void SetCaughtChicken(int index)
     {
-        _countChickenInBox += index;
+        CountChickenInBox += index;
     }
 
     protected void TurnOffChickenTemplate()

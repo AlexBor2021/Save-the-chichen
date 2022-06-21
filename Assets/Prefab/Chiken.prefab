@@ -151,7 +151,26 @@ MonoBehaviour:
   _speed: 2
   _restartSpeed: 2
   _chicken: {fileID: -7797346593192844885}
-  _targetsWay: []
+  _targetsWay:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!82 &-6271328907158683802
 AudioSource:
   m_ObjectHideFlags: 0

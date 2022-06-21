@@ -31,13 +31,13 @@ public class MoveChicken : MonoBehaviour
         _animator = GetComponent<Animator>();
         _pointTarget = Random.Range(0, _targetsWay.Count);
         _axisY = transform.position.y;
-        _chicken.StopChicken += Stopchicken;
+        _chicken.StopChicken += StopChicken;
     }
 
     private void OnDisable()
     {
         _speed = _oldSpeed;
-        _chicken.StopChicken -= Stopchicken;
+        _chicken.StopChicken -= StopChicken;
     }
 
     private void Update()
@@ -113,7 +113,7 @@ public class MoveChicken : MonoBehaviour
         _axisY = transform.position.y;
     }
 
-    private void Stopchicken(bool stop)
+    private void StopChicken(bool stop)
     {
         if (stop)
         {

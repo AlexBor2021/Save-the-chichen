@@ -25,14 +25,6 @@ public class Box : MonoBehaviour
         _destroyBox = StartCoroutine(DestroyBox());
     }
 
-    private IEnumerator DestroyBox()
-    {
-        yield return new WaitForSecondsRealtime(_timerSecondForEffect);
-        EffectActivated?.Invoke();
-        yield return new WaitForSecondsRealtime(_timerSecond-_timerSecondForEffect);
-        StartDestroyBox();
-    }
-
     public void LaunchgAudio()
     {
         _audioSource.PlayOneShot(_fellBox);
@@ -45,5 +37,13 @@ public class Box : MonoBehaviour
         StopCoroutine(_destroyBox);
         gameObject.SetActive(false);
         AudioSource.PlayClipAtPoint(_crashBox, transform.position);
+    }
+
+    private IEnumerator DestroyBox()
+    {
+        yield return new WaitForSecondsRealtime(_timerSecondForEffect);
+        EffectActivated?.Invoke();
+        yield return new WaitForSecondsRealtime(_timerSecond-_timerSecondForEffect);
+        StartDestroyBox();
     }
 }
