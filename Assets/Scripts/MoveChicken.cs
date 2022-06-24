@@ -14,7 +14,6 @@ public class MoveChicken : MonoBehaviour
    
     private int _pointTarget;
     private int _oldPointTarget;
-    private float _axisY;
     private float _oldSpeed;
     private int _degreeTurn = 90;
     private float _valueUpSpeed = 0.5f;
@@ -24,7 +23,6 @@ public class MoveChicken : MonoBehaviour
     {
         _oldSpeed = _speed;
         _pointTarget = Random.Range(0, _targetsWay.Count);
-        _axisY = transform.position.y;
         _chicken.StopChicken += StopChicken;
     }
 
