@@ -18,7 +18,7 @@ public class GenerationChicken : ObjectPool
     private int _indexWave = 0;
     private float timer = 0;
     private float _delay = 1; 
-    private bool _work; 
+    private bool _workCorotine; 
 
     public int IndexWave => _indexWave;
     public Wave CurrentWave => _currentWave;
@@ -26,7 +26,7 @@ public class GenerationChicken : ObjectPool
     private void OnEnable()
     {
         _settingMenu = GetComponentInChildren<SettingMenu>();
-        _work = true;
+        _workCorotine = true;
     }
 
     private void Start()
@@ -39,7 +39,7 @@ public class GenerationChicken : ObjectPool
 
         InitializeChicken(_currentWave.ChickenTemplate);
 
-        ActivateCorotne();
+        ActivateCorotineWave();
     }
 
     private void Update()
@@ -47,15 +47,15 @@ public class GenerationChicken : ObjectPool
         ExitÑurrentWave();
     }
 
-    public void ActivateCorotne()
+    public void ActivateCorotineWave()
     {
-        _work = true;
+        _workCorotine = true;
         _setChickenWave = StartCoroutine(SetChickenWave());
     }
 
     public void StopCorotineWave()
     {
-        _work = false;
+        _workCorotine = false;
         StopCoroutine(_setChickenWave);
     }
 
@@ -73,7 +73,7 @@ public class GenerationChicken : ObjectPool
 
     private IEnumerator SetChickenWave()
     {
-        while (_work)
+        while (_workCorotine)
         {
             if (TryGetGameObject(out Chicken chicken) && Time.timeScale > 0)
             {
