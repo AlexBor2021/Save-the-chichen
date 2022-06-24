@@ -33,7 +33,7 @@ public class ObjectPool : MonoBehaviour
             var templayBox = Instantiate(_templayBox, spawned.transform);
             spawned.SetBox(templayBox);
             _poolChicken.Add(spawned);
-            spawned.gameObject.SetActive(false);
+            spawned.ActivateGameobject(false);
         }
     }
 
@@ -48,7 +48,7 @@ public class ObjectPool : MonoBehaviour
         {
             if (chicken.gameObject)
             {
-                chicken.gameObject.SetActive(false);
+                chicken.ActivateGameobject(false);
             }
         }
     }

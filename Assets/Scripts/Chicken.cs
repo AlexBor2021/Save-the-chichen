@@ -40,7 +40,7 @@ public class Chicken : MonoBehaviour
         {
             StopChicken?.Invoke(true);
             _boxChicken.TemplayBox.transform.position = transform.position;
-            _boxChicken.TemplayBox.SetActive(true);
+            _boxChicken.ActiveTemplayBox(true);
             ChickenCaught?.Invoke((int)ÑaughtChicken.yes);
             _click = 1;
         }
@@ -49,6 +49,11 @@ public class Chicken : MonoBehaviour
     public void SetBox(GameObject templayBox)
     {
         _boxChicken.TemplayBox = templayBox;
+    }
+
+    public void ActivateGameobject(bool work)
+    {
+        gameObject.SetActive(work);
     }
 
     private void ReleaseChicken()
@@ -65,4 +70,9 @@ public class BoxChicken
 {
     public GameObject TemplayBox;
     public Box Box;
+
+    public void ActiveTemplayBox(bool work)
+    {
+        TemplayBox.SetActive(work);
+    }
 }

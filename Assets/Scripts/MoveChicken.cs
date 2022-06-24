@@ -3,32 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Animator))]
 
 public class MoveChicken : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _restartSpeed;
     [SerializeField] private Chicken _chicken;
+    [SerializeField] private AnimationChicken _animationChicken;
     [SerializeField] private List<Transform> _targetsWay = new List<Transform>();
-
-    private SpriteRenderer _chickenSpriteRender;
-    private Animator _animator;
+   
     private int _pointTarget;
     private int _oldPointTarget;
     private float _axisY;
     private float _oldSpeed;
     private int _degreeTurn = 90;
     private float _valueUpSpeed = 0.5f;
-    private float _distanceToPoint = 1f;
-
-    public const string Horizontal = "Horizontal";
+    private float _distanceToPoint = 1;
 
     private void OnEnable()
     {
         _oldSpeed = _speed;
-        _chickenSpriteRender = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
         _pointTarget = Random.Range(0, _targetsWay.Count);
         _axisY = transform.position.y;
         _chicken.StopChicken += StopChicken;
@@ -86,31 +80,15 @@ public class MoveChicken : MonoBehaviour
     private void Move()
     {
         transform.position = Vector2.MoveTowards(transform.position, _targetsWay[_pointTarget].transform.position, _speed * Time.deltaTime);
-        SetAnimation();
+        _animationChicken.SetAnimation(_targetsWay[_pointTarget].transform.position.y);
 
         if (Vector2.Distance(transform.position, _targetsWay[_pointTarget].transform.position) < _distanceToPoint)
         {
             _oldPointTarget = _pointTarget;
             _pointTarget = Random.Range(0, _targetsWay.Count);
             transform.position = Vector2.MoveTowards(transform.position, _targetsWay[_pointTarget].transform.position, _speed * Time.deltaTime);
-            SetAnimation();
+            _animationChicken.SetAnimation(_targetsWay[_pointTarget].transform.position.y);
         }
-    }
-
-    private void SetAnimation()
-    {
-        if (_axisY > _targetsWay[_pointTarget].transform.position.y)
-        {
-            _animator.SetFloat(Horizontal, -1);
-            _chickenSpriteRender.flipY = false;
-        }
-        else
-        {
-            _animator.SetFloat(Horizontal, 1);
-            _chickenSpriteRender.flipY = true;
-        }
-
-        _axisY = transform.position.y;
     }
 
     private void StopChicken(bool stop)

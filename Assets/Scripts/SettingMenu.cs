@@ -31,6 +31,7 @@ public class SettingMenu : MonoBehaviour
     public void ActiveateNextLevel()
     {
         _generationChicken.SetWave(_generationChicken.IndexWave);
+        _generationChicken.ActivateCorotne();
         Time.timeScale = _normalTime;
     }
 

@@ -5,6 +5,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
+[RequireComponent(typeof(SettingMenu))]
+
 public class GenerationChicken : ObjectPool
 {
     [SerializeField] private List<Wave> _waves = new List<Wave>();
@@ -12,18 +14,23 @@ public class GenerationChicken : ObjectPool
 
     private SettingMenu _settingMenu;
     private Wave _currentWave;
-    private float _pastTime;
+    private Coroutine _setChickenWave;
     private int _indexWave = 0;
     private float timer = 0;
     private float _delay = 1; 
+    private bool _work; 
 
     public int IndexWave => _indexWave;
     public Wave CurrentWave => _currentWave;
 
-    private void Start()
+    private void OnEnable()
     {
         _settingMenu = GetComponentInChildren<SettingMenu>();
+        _work = true;
+    }
 
+    private void Start()
+    {
         SetWave(_indexWave);
 
        _currentWave.MoveChicken.ClearWayList();
@@ -32,13 +39,24 @@ public class GenerationChicken : ObjectPool
 
         InitializeChicken(_currentWave.ChickenTemplate);
 
+        ActivateCorotne();
     }
 
     private void Update()
     {
-        SetChickenWave();
-
         Exit—urrentWave();
+    }
+
+    public void ActivateCorotne()
+    {
+        _work = true;
+        _setChickenWave = StartCoroutine(SetChickenWave());
+    }
+
+    public void StopCorotineWave()
+    {
+        _work = false;
+        StopCoroutine(_setChickenWave);
     }
 
     public void ZeroingLevel()
@@ -53,6 +71,27 @@ public class GenerationChicken : ObjectPool
         _currentWave = _waves[indexWave];
     }
 
+    private IEnumerator SetChickenWave()
+    {
+        while (_work)
+        {
+            if (TryGetGameObject(out Chicken chicken) && Time.timeScale > 0)
+            {
+                if (_currentWave.CountChicken != ActiveChikenNow)
+                {
+                    SetChicken(chicken, transform.position);
+                    ActiveChikenNow++;
+                }
+                else
+                {
+                    StopCorotineWave();
+                }
+            }
+
+            yield return new WaitForSeconds(_currentWave.Delay);
+        }
+    }
+
     private void SetWayForChicken()
     {
         for (int i = 0; i < _targetWay.Count; i++)
@@ -63,23 +102,8 @@ public class GenerationChicken : ObjectPool
 
     private void SetChicken(Chicken chicken, Vector2 spawnPostion)
     {
-        chicken.gameObject.SetActive(true);
+        chicken.ActivateGameobject(true);
         chicken.transform.position = spawnPostion;
-    }
-
-    private void SetChickenWave()
-    {
-        _pastTime += Time.deltaTime;
-
-        if (TryGetGameObject(out _currentWave.ChickenTemplate) && _pastTime >= _currentWave.Delay && Time.timeScale > 0)
-        {
-            if (_currentWave.CountChicken != ActiveChikenNow)
-            {
-                SetChicken(_currentWave.ChickenTemplate, transform.position);
-                _pastTime = 0;
-                ActiveChikenNow++;
-            }
-        }
     }
 
     private void Exit—urrentWave()
@@ -107,5 +131,5 @@ public class Wave
     public Chicken ChickenTemplate;
     public MoveChicken MoveChicken;
     public float CountChicken;
-    public int Delay;
+    public float Delay;
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -7797346593192844885}
   - component: {fileID: 8623078321213097274}
   - component: {fileID: -2107218066581254219}
+  - component: {fileID: 6331934800740984733}
   - component: {fileID: -6271328907158683802}
   - component: {fileID: 3022354483468869292}
   - component: {fileID: 6692845466182643686}
@@ -32,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953405333313950180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 6.94, z: 0}
   m_LocalScale: {x: 0.89757, y: 0.89757, z: 0.89757}
   m_Children: []
   m_Father: {fileID: 0}
@@ -151,6 +152,7 @@ MonoBehaviour:
   _speed: 2
   _restartSpeed: 2
   _chicken: {fileID: -7797346593192844885}
+  _animationChicken: {fileID: 6331934800740984733}
   _targetsWay:
   - {fileID: 0}
   - {fileID: 0}
@@ -171,6 +173,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &6331934800740984733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953405333313950180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a4bfaafb4bf0448be47dbf322e8f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &-6271328907158683802
 AudioSource:
   m_ObjectHideFlags: 0
