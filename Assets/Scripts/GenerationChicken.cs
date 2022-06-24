@@ -71,27 +71,6 @@ public class GenerationChicken : ObjectPool
         _currentWave = _waves[indexWave];
     }
 
-    private IEnumerator SetChickenWave()
-    {
-        while (_workCorotine)
-        {
-            if (TryGetGameObject(out Chicken chicken) && Time.timeScale > 0)
-            {
-                if (_currentWave.CountChicken != ActiveChikenNow)
-                {
-                    SetChicken(chicken, transform.position);
-                    ActiveChikenNow++;
-                }
-                else
-                {
-                    StopCorotineWave();
-                }
-            }
-
-            yield return new WaitForSeconds(_currentWave.Delay);
-        }
-    }
-
     private void SetWayForChicken()
     {
         for (int i = 0; i < _targetWay.Count; i++)
@@ -120,6 +99,27 @@ public class GenerationChicken : ObjectPool
                 timer = 0;
                 Time.timeScale = 0;
             }
+        }
+    }
+
+    private IEnumerator SetChickenWave()
+    {
+        while (_workCorotine)
+        {
+            if (TryGetGameObject(out Chicken chicken) && Time.timeScale > 0)
+            {
+                if (_currentWave.CountChicken != ActiveChikenNow)
+                {
+                    SetChicken(chicken, transform.position);
+                    ActiveChikenNow++;
+                }
+                else
+                {
+                    StopCorotineWave();
+                }
+            }
+
+            yield return new WaitForSeconds(_currentWave.Delay);
         }
     }
 }
